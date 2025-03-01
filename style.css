@@ -1,0 +1,27 @@
+:root[data-theme="light"] {
+  --text: rgb(4, 3, 22);
+  --background: rgb(251, 251, 254);
+  --primary: rgb(47, 39, 206);
+  --secondary: rgb(221, 219, 255);
+  --accent: rgb(68, 61, 255);
+}
+:root[data-theme="dark"] {
+  --text: rgb(234, 233, 252);
+  --background: rgb(1, 1, 4);
+  --primary: rgb(58, 49, 216);
+  --secondary: rgb(2, 0, 36);
+  --accent: rgb(6, 0, 194);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+    background-color: var(--background);
+    transition: background-color 300ms ease-in;
+}
