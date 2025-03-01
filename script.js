@@ -1,5 +1,10 @@
 const toggleThemeBtn = document.querySelector("#toggle-theme");
 
+
+// Setiing up default light mode
+setLightTheme();
+
+//Light and dark mode toggling
 toggleThemeBtn.addEventListener("click", function () {
   const currentTheme = document.documentElement.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
@@ -14,5 +19,4 @@ function setDarkTheme() {
     document.documentElement.setAttribute("data-theme", "dark");
   }
 
-setLightTheme();
-setDarkTheme();
+

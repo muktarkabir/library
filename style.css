@@ -21,7 +21,9 @@
   box-sizing: border-box;
 }
 
-body{
-    background-color: var(--background);
-    transition: background-color 300ms ease-in;
+body {
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 300ms ease-in, color 300ms ease-in;
 }
+
