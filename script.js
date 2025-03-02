@@ -1,8 +1,6 @@
 const toggleThemeBtn = document.querySelector("#toggle-theme");
 const container = document.querySelector("main");
 
-const myLibrary = [];
-
 // Setiing up default light mode
 setLightTheme();
 
@@ -34,31 +32,48 @@ function Book(title, author, pages, read) {
   };
 }
 
-const sapiens = new Book("Sapiens", "Yuval Noah Harari", 309, false);
-const theAlchemist = new Book("The Alchemist", "Paulelo Coelho", 400, true);
-const theHousemaidsSecret = new Book("The Housemaid\'s Secret", "Frieda McFadden", 240, true);
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
 
-myLibrary.push(sapiens, theAlchemist, theHousemaidsSecret);
-console.log(myLibrary);
+const sapiens = new Book("Sapiens", "Yuval Noah Harari", 580, true);
+const theAlchemist = new Book("The Alchemist", "Paulo Coelho", 213, true);
+const tHS = new Book("The Housemaid's Secret", "Frieda McFadden", 316, true);
+const abscenceOfMind = new Book("Absence of Mind", "H.C.H. Ritz", 310, true);
 
-myLibrary.forEach((book) => {
-  let renderedBook = createBookUI(book);
-  container.append(renderedBook);
-});
+const myLibrary = [sapiens, theAlchemist, tHS, abscenceOfMind];
 
-function addBooktoLibrary(book) {}
+displayBooks();
 
-function createBookUI(book) {
+function addBooktoLibrary(title, author, noOfPages, read) {
+  let book = new Book(title, author, noOfPages, read);
+  myLibrary.push(book);
+  let newBook = createBookUI(book, myLibrary.at(-1));
+  container.append(newBook);
+  console.log(myLibrary);
+}
+
+function displayBooks() {
+  myLibrary.forEach((book, index) => {
+    let renderedBook = createBookUI(book, index);
+    container.append(renderedBook);
+  });
+}
+
+function createBookUI(book, index) {
   let bookDiv = document.createElement("div");
   bookDiv.classList.add("book");
+  bookDiv.dataset.index = index;
   bookDiv.innerHTML = ` 
   <img src= 
-    "assets/images/book-closed-svgrepo-com.svg" alt="book">
-            <p>${book.title}</p>
+    "assets/images/book-open-alt-light-svgrepo-com.svg" alt="open book">
+            <h3>${book.title}</h3>
             <p>${book.author}</p>
-            <p>${book.pages}</p>
+            <p>${book.pages} pages</p>
             <p>${book.info()}</p>
-            <button type="button">Read</button>
-            <button type="button">Delete</button>`;
+            <button type="button">${
+              book.read ? "Completed" : "Pending"
+            }</button>
+            <button type="button" class="delete">Delete</button>`;
   return bookDiv;
 }

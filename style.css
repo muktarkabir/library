@@ -4,8 +4,6 @@
   --primary: rgb(47, 39, 206);
   --secondary: rgb(221, 219, 255);
   --accent: rgb(68, 61, 255);
-  --brownish: rgb(249, 235, 178);
-  --blueish: rgb(69, 170, 184);
 }
 :root[data-theme="dark"] {
   --text: rgb(234, 233, 252);
@@ -13,14 +11,15 @@
   --primary: rgb(58, 49, 216);
   --secondary: rgb(2, 0, 36);
   --accent: rgb(6, 0, 194);
-  --brownish: rgb(249, 235, 178);
-  --blueish: rgb(69, 170, 184);
 }
 
 :root {
   --header-height: 80px;
   --font-stack: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  --brownish: rgb(249, 235, 178);
+  --blueish: rgb(69, 170, 184);
+  --soft-red: #f47174;
 }
 
 *,
@@ -54,8 +53,8 @@ header {
   align-items: center;
   justify-content: space-between;
 }
-header > h1{
-    font-size: 3rem;
+header > h1 {
+  font-size: 3rem;
 }
 
 .toggle-div {
@@ -72,34 +71,66 @@ header > h1{
   color: var(--text);
 }
 
-main{
-    width: 80%;
-    min-height: 80%;
-    height: calc(100% * var(--header-height));
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    grid-auto-rows: auto;
-    justify-items: center;
-    gap: 20px;
-
+main {
+  width: 80%;
+  min-height: 80%;
+  height: calc(100% * var(--header-height));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 350px;
+  justify-items: center;
+  gap: 20px;
+  position: relative;
 }
 
-.book{
-    width: 250px;
-    height: 350px;
-    background-color: #394240;
-    line-height: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    color: inherit;
-}
-.book button:first-of-type{
-    margin-bottom: 12px;
+button.add-book {
+  position: fixed;
+  z-index: 1;
+  bottom: 40px;
+  right: 40px;
+  background-color: var(--blueish);
+  color: inherit;
+  border: none;
+  padding: 1rem 2rem;
+  box-shadow: 4px 4px 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
 }
 
-.book img{
-    height: 40%;
+.book {
+  width: 250px;
+  height: 350px;
+  background-color: rgb(57, 109, 142);
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: inherit;
+}
+.book h3 {
+  font-size: 1.2rem;
+}
+.book button:first-of-type {
+  margin-bottom: 4px;
+}
+
+.book button {
+  cursor: pointer;
+  height: 50px;
+  width: 100%;
+  font-weight: bold;
+  color: var(--text);
+  background-color: var(--blueish);
+  border: none;
+}
+
+.book button.delete {
+  background-color: var(--soft-red);
+}
+
+.book img {
+  height: 40%;
 }
