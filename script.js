@@ -10,9 +10,9 @@ const noOfPagesInput = addBookForm.querySelector("#pages");
 const readInput = addBookForm.querySelector("#read");
 const submitButton = addBookForm.querySelector("button");
 const infoSection = document.querySelector("section.stats");
-const totalNoOfBooks = infoSection.querySelector(".total-no-of-books span");
-const noOfReadBooks = infoSection.querySelector(".no-finised-books span");
-const noOfUnreadBooks = infoSection.querySelector(".no-unfinished-books span");
+const totalNoOfBooks = infoSection.querySelector(".total-no-of-books h3");
+const noOfReadBooks = infoSection.querySelector(".no-finised-books h3");
+const noOfUnreadBooks = infoSection.querySelector(".no-unfinished-books h3");
 
 // Setiing up default light mode
 setLightTheme();
