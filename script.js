@@ -1,8 +1,17 @@
 const toggleThemeBtn = document.querySelector("#toggle-theme");
 const container = document.querySelector("main");
-const addButton = document.querySelector('.add-book-button');
-const addBookDialog = document.querySelector('dialog');
-const closeButton = addBookDialog.querySelector('button.close');
+const addButton = document.querySelector(".add-book-button");
+const addBookDialog = document.querySelector("dialog");
+const closeButton = addBookDialog.querySelector("button.close");
+const addBookForm = addBookDialog.querySelector("form");
+const titleInput = addBookForm.querySelector("#title");
+const authorInput = addBookForm.querySelector("#author");
+const noOfPagesInput = addBookForm.querySelector("#pages");
+const readInput = addBookForm.querySelector("#read");
+const submitButton = addBookForm.querySelector("button");
+
+titleInput.addEventListener("input", (e) => console.log(e.target.value));
+
 // Setiing up default light mode
 setLightTheme();
 
@@ -23,12 +32,21 @@ function setDarkTheme() {
   document.documentElement.setAttribute("data-theme", "dark");
 }
 
-addButton.addEventListener('click',()=>{
-    addBookDialog.showModal();
+addButton.addEventListener("click", () => {
+  addBookDialog.showModal();
 });
 
-closeButton.addEventListener('click',()=>{
+closeButton.addEventListener("click", () => {
+  addBookDialog.close();
+});
+
+submitButton.addEventListener("click", (e) => {
+  if (titleInput.value && authorInput.value && noOfPagesInput.value) {
+    e.preventDefault();
     addBookDialog.close();
+    addBooktoLibrary(titleInput.value,authorInput.value,noOfPagesInput.value,readInput.checked);
+  }
+ 
 });
 
 function Book(title, author, pages, read) {
