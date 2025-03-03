@@ -9,6 +9,10 @@ const authorInput = addBookForm.querySelector("#author");
 const noOfPagesInput = addBookForm.querySelector("#pages");
 const readInput = addBookForm.querySelector("#read");
 const submitButton = addBookForm.querySelector("button");
+const infoSection = document.querySelector("section.stats");
+const totalNoOfBooks = infoSection.querySelector(".total-no-of-books span");
+const noOfReadBooks = infoSection.querySelector(".no-finised-books span");
+const noOfUnreadBooks = infoSection.querySelector(".no-unfinished-books span");
 
 // Setiing up default light mode
 setLightTheme();
@@ -48,6 +52,10 @@ const abscenceOfMind = new Book("Absence of Mind", "H.C.H. Ritz", 310, true);
 
 const myLibrary = [sapiens, theAlchemist, tHS, abscenceOfMind];
 
+function getLibraryLenght() {
+  return myLibrary.length;
+}
+
 function addBooktoLibrary(title, author, noOfPages, read) {
   let book = new Book(title, author, noOfPages, read);
   myLibrary.push(book);
@@ -61,7 +69,20 @@ function displayAllBooks() {
   myLibrary.forEach((book, index) => {
     let renderedBook = createBookUI(book, index);
     container.append(renderedBook);
+    console.log(myLibrary.indexOf(book), renderedBook.dataset.index);
   });
+}
+
+function numOfReadBooks() {
+  myLibrary.filter((book) => {
+    return book.read == true;
+  }).length;
+}
+
+function numOfUnreadBooks() {
+  myLibrary.filter((book) => {
+    return book.read == false;
+  }).length;
 }
 
 function createBookUI(book, index) {
@@ -73,12 +94,24 @@ function createBookUI(book, index) {
     let currentBookIndex = parseInt(bookDiv.dataset.index);
     if (e.target.matches("button.delete")) {
       //Implement delete functionality
+      myLibrary.splice(currentBookIndex, 1);
+      console.log(myLibrary);
     } else if (e.target.matches("button.read")) {
       myLibrary[currentBookIndex].toggleRead();
       myLibrary[currentBookIndex].read
         ? (e.target.textContent = "Completed")
         : (e.target.textContent = "Pending...");
+      noOfReadBooks.textContent = ` ${
+        myLibrary.filter((book) => {
+          return book.read == true;
+        }).length
+      }`;
     }
+    noOfUnreadBooks.textContent = ` ${
+      myLibrary.filter((book) => {
+        return book.read == false;
+      }).length
+    }`;
   });
   bookDiv.innerHTML = ` 
   <img src= 
@@ -89,6 +122,18 @@ function createBookUI(book, index) {
             <p>${book.info()}</p>
             <button type="button" class="read">${statusText}</button>
             <button type="button" class="delete">Delete</button>`;
+  totalNoOfBooks.textContent = ` ${myLibrary.length}`;
+  noOfReadBooks.textContent = ` ${
+    myLibrary.filter((book) => {
+      return book.read == true;
+    }).length
+  }`;
+  noOfUnreadBooks.textContent = ` ${
+    myLibrary.filter((book) => {
+      return book.read == false;
+    }).length
+  }`;
+
   return bookDiv;
 }
 
