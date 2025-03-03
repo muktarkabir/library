@@ -1,5 +1,6 @@
 const toggleThemeBtn = document.querySelector("#toggle-theme");
 const container = document.querySelector("main");
+const allBooks = container.querySelectorAll('.book');
 
 // Setiing up default light mode
 setLightTheme();
@@ -50,7 +51,6 @@ function addBooktoLibrary(title, author, noOfPages, read) {
   myLibrary.push(book);
   let newBook = createBookUI(book, myLibrary.at(-1));
   container.append(newBook);
-  console.log(myLibrary);
 }
 
 function displayBooks() {
@@ -64,6 +64,14 @@ function createBookUI(book, index) {
   let bookDiv = document.createElement("div");
   bookDiv.classList.add("book");
   bookDiv.dataset.index = index;
+  bookDiv.addEventListener('click',(e)=>{
+    if (e.target.matches('button.delete')) {
+        console.log('Delete button clicked');
+    } else if (e.target.matches('button.read')) {
+       console.log('read button clicked');
+        
+    }
+  });
   bookDiv.innerHTML = ` 
   <img src= 
     "assets/images/book-open-alt-light-svgrepo-com.svg" alt="open book">
@@ -71,7 +79,7 @@ function createBookUI(book, index) {
             <p>${book.author}</p>
             <p>${book.pages} pages</p>
             <p>${book.info()}</p>
-            <button type="button">${
+            <button type="button" class="read">${
               book.read ? "Completed" : "Pending"
             }</button>
             <button type="button" class="delete">Delete</button>`;
