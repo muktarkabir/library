@@ -65,11 +65,18 @@ function addBooktoLibrary(title, author, noOfPages, read) {
   container.append(newBook);
 }
 
+function deleteBookFromLibrary(bookIndex) {
+  myLibrary.splice(bookIndex, 1);
+  container.removeChild(container.childNodes[parseInt(bookIndex)]);
+  totalNoOfBooks.textContent = ` ${myLibrary.length}`;
+  setNumOfReadBooks();
+  setNumOfUnreadBooks();
+}
+
 function displayAllBooks() {
   myLibrary.forEach((book, index) => {
     let renderedBook = createBookUI(book, index);
     container.append(renderedBook);
-    console.log(myLibrary.indexOf(book), renderedBook.dataset.index);
   });
 }
 
@@ -93,9 +100,7 @@ function createBookUI(book, index) {
   bookDiv.addEventListener("click", (e) => {
     let currentBookIndex = parseInt(bookDiv.dataset.index);
     if (e.target.matches("button.delete")) {
-      //Implement delete functionality
-      myLibrary.splice(currentBookIndex, 1);
-      console.log(myLibrary);
+      deleteBookFromLibrary(bookDiv.dataset.index);
     } else if (e.target.matches("button.read")) {
       myLibrary[currentBookIndex].toggleRead();
       myLibrary[currentBookIndex].read
