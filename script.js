@@ -1,6 +1,6 @@
 const toggleThemeBtn = document.querySelector("#toggle-theme");
 const container = document.querySelector("main");
-const allBooks = container.querySelectorAll('.book');
+const allBooks = container.querySelectorAll(".book");
 
 // Setiing up default light mode
 setLightTheme();
@@ -53,6 +53,12 @@ function addBooktoLibrary(title, author, noOfPages, read) {
   container.append(newBook);
 }
 
+function deleteBookFromLibrary(index) {
+  myLibrary.splice(index, 1);
+  container.remove([index]);
+  console.log(myLibrary);
+}
+
 function displayBooks() {
   myLibrary.forEach((book, index) => {
     let renderedBook = createBookUI(book, index);
@@ -64,12 +70,15 @@ function createBookUI(book, index) {
   let bookDiv = document.createElement("div");
   bookDiv.classList.add("book");
   bookDiv.dataset.index = index;
-  bookDiv.addEventListener('click',(e)=>{
-    if (e.target.matches('button.delete')) {
-        console.log('Delete button clicked');
-    } else if (e.target.matches('button.read')) {
-       console.log('read button clicked');
-        
+  let statusText = book.read ? "Completed" : "Pending...";
+  bookDiv.addEventListener("click", (e) => {
+    let currentBookIndex = parseInt(bookDiv.dataset.index);
+    if (e.target.matches("button.delete")) {
+    } else if (e.target.matches("button.read")) {
+      myLibrary[currentBookIndex].toggleRead();
+      myLibrary[currentBookIndex].read
+        ? (e.target.textContent = "Completed")
+        : (e.target.textContent = "Pending...");
     }
   });
   bookDiv.innerHTML = ` 
@@ -79,9 +88,7 @@ function createBookUI(book, index) {
             <p>${book.author}</p>
             <p>${book.pages} pages</p>
             <p>${book.info()}</p>
-            <button type="button" class="read">${
-              book.read ? "Completed" : "Pending"
-            }</button>
+            <button type="button" class="read">${statusText}</button>
             <button type="button" class="delete">Delete</button>`;
   return bookDiv;
 }
