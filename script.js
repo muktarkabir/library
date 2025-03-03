@@ -69,6 +69,10 @@ function deleteBookFromLibrary(bookIndex) {
   myLibrary.splice(bookIndex, 1);
   container.removeChild(container.childNodes[parseInt(bookIndex)]);
   totalNoOfBooks.textContent = ` ${myLibrary.length}`;
+
+  if (container.hasChildNodes) {
+    container.lastChild.dataset.index = myLibrary.length - 1;
+  }
   setNumOfReadBooks();
   setNumOfUnreadBooks();
 }
