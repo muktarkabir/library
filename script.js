@@ -2,7 +2,7 @@ const toggleThemeBtn = document.querySelector("#toggle-theme");
 const container = document.querySelector("main");
 const addButton = document.querySelector('.add-book-button');
 const addBookDialog = document.querySelector('dialog');
-const closeButton = addBookDialog.querySelector('button');
+const closeButton = addBookDialog.querySelector('button.close');
 // Setiing up default light mode
 setLightTheme();
 
