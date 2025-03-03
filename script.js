@@ -73,14 +73,14 @@ function displayAllBooks() {
   });
 }
 
-function numOfReadBooks() {
-  myLibrary.filter((book) => {
+function setNumOfReadBooks() {
+  noOfReadBooks.textContent = myLibrary.filter((book) => {
     return book.read == true;
   }).length;
 }
 
-function numOfUnreadBooks() {
-  myLibrary.filter((book) => {
+function setNumOfUnreadBooks() {
+  noOfUnreadBooks.textContent = myLibrary.filter((book) => {
     return book.read == false;
   }).length;
 }
@@ -101,17 +101,9 @@ function createBookUI(book, index) {
       myLibrary[currentBookIndex].read
         ? (e.target.textContent = "Completed")
         : (e.target.textContent = "Pending...");
-      noOfReadBooks.textContent = ` ${
-        myLibrary.filter((book) => {
-          return book.read == true;
-        }).length
-      }`;
+      setNumOfReadBooks();
+      setNumOfUnreadBooks();
     }
-    noOfUnreadBooks.textContent = ` ${
-      myLibrary.filter((book) => {
-        return book.read == false;
-      }).length
-    }`;
   });
   bookDiv.innerHTML = ` 
   <img src= 
@@ -123,16 +115,8 @@ function createBookUI(book, index) {
             <button type="button" class="read">${statusText}</button>
             <button type="button" class="delete">Delete</button>`;
   totalNoOfBooks.textContent = ` ${myLibrary.length}`;
-  noOfReadBooks.textContent = ` ${
-    myLibrary.filter((book) => {
-      return book.read == true;
-    }).length
-  }`;
-  noOfUnreadBooks.textContent = ` ${
-    myLibrary.filter((book) => {
-      return book.read == false;
-    }).length
-  }`;
+  setNumOfReadBooks();
+  setNumOfUnreadBooks();
 
   return bookDiv;
 }
