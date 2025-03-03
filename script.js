@@ -1,7 +1,8 @@
 const toggleThemeBtn = document.querySelector("#toggle-theme");
 const container = document.querySelector("main");
-const allBooks = container.querySelectorAll(".book");
-
+const addButton = document.querySelector('.add-book-button');
+const addBookDialog = document.querySelector('dialog');
+const closeButton = addBookDialog.querySelector('button');
 // Setiing up default light mode
 setLightTheme();
 
@@ -21,6 +22,14 @@ function setLightTheme() {
 function setDarkTheme() {
   document.documentElement.setAttribute("data-theme", "dark");
 }
+
+addButton.addEventListener('click',()=>{
+    addBookDialog.showModal();
+});
+
+closeButton.addEventListener('click',()=>{
+    addBookDialog.close();
+});
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -44,7 +53,7 @@ const abscenceOfMind = new Book("Absence of Mind", "H.C.H. Ritz", 310, true);
 
 const myLibrary = [sapiens, theAlchemist, tHS, abscenceOfMind];
 
-displayBooks();
+displayAllBooks();
 
 function addBooktoLibrary(title, author, noOfPages, read) {
   let book = new Book(title, author, noOfPages, read);
@@ -53,13 +62,7 @@ function addBooktoLibrary(title, author, noOfPages, read) {
   container.append(newBook);
 }
 
-function deleteBookFromLibrary(index) {
-  myLibrary.splice(index, 1);
-  container.remove([index]);
-  console.log(myLibrary);
-}
-
-function displayBooks() {
+function displayAllBooks() {
   myLibrary.forEach((book, index) => {
     let renderedBook = createBookUI(book, index);
     container.append(renderedBook);
@@ -74,6 +77,7 @@ function createBookUI(book, index) {
   bookDiv.addEventListener("click", (e) => {
     let currentBookIndex = parseInt(bookDiv.dataset.index);
     if (e.target.matches("button.delete")) {
+      //Implement delete functionality
     } else if (e.target.matches("button.read")) {
       myLibrary[currentBookIndex].toggleRead();
       myLibrary[currentBookIndex].read
