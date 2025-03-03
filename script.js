@@ -10,8 +10,6 @@ const noOfPagesInput = addBookForm.querySelector("#pages");
 const readInput = addBookForm.querySelector("#read");
 const submitButton = addBookForm.querySelector("button");
 
-titleInput.addEventListener("input", (e) => console.log(e.target.value));
-
 // Setiing up default light mode
 setLightTheme();
 
@@ -27,27 +25,6 @@ toggleThemeBtn.addEventListener("click", function () {
 function setLightTheme() {
   document.documentElement.setAttribute("data-theme", "light");
 }
-
-function setDarkTheme() {
-  document.documentElement.setAttribute("data-theme", "dark");
-}
-
-addButton.addEventListener("click", () => {
-  addBookDialog.showModal();
-});
-
-closeButton.addEventListener("click", () => {
-  addBookDialog.close();
-});
-
-submitButton.addEventListener("click", (e) => {
-  if (titleInput.value && authorInput.value && noOfPagesInput.value) {
-    e.preventDefault();
-    addBookDialog.close();
-    addBooktoLibrary(titleInput.value,authorInput.value,noOfPagesInput.value,readInput.checked);
-  }
- 
-});
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -71,12 +48,12 @@ const abscenceOfMind = new Book("Absence of Mind", "H.C.H. Ritz", 310, true);
 
 const myLibrary = [sapiens, theAlchemist, tHS, abscenceOfMind];
 
-displayAllBooks();
-
 function addBooktoLibrary(title, author, noOfPages, read) {
   let book = new Book(title, author, noOfPages, read);
   myLibrary.push(book);
-  let newBook = createBookUI(book, myLibrary.at(-1));
+  let newBook = createBookUI(book, myLibrary.length - 1);
+  console.log(newBook);
+
   container.append(newBook);
 }
 
@@ -114,3 +91,27 @@ function createBookUI(book, index) {
             <button type="button" class="delete">Delete</button>`;
   return bookDiv;
 }
+
+displayAllBooks();
+
+addButton.addEventListener("click", () => {
+  addBookDialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+  addBookDialog.close();
+  addBookForm.reset();
+});
+
+submitButton.addEventListener("click", (e) => {
+  if (titleInput.value && authorInput.value && noOfPagesInput.value) {
+    e.preventDefault();
+    addBookDialog.close();
+    let bookTitle = titleInput.value.trim();
+    let bookAuthor = authorInput.value.trim();
+    let pagesNumber = parseInt(noOfPagesInput.value);
+    let readYet = readInput.checked;
+    addBooktoLibrary(bookTitle, bookAuthor, pagesNumber, readYet);
+    addBookForm.reset();
+  }
+});
