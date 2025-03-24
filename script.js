@@ -123,7 +123,7 @@ function createBookUI(book, index) {
             <p>${book.info()}</p>
             <button type="button" class="read">${statusText}</button>
             <button type="button" class="delete">Delete</button>`;
-  totalNoOfBooks.textContent = ` ${myLibrary.length}`;
+  totalNoOfBooks.textContent = `${myLibrary.length}`;
   setNumOfReadBooks();
   setNumOfUnreadBooks();
 
