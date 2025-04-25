@@ -36,16 +36,28 @@ class Book {
     this.author = author;
     this.pages = pages;
     this.read = read;
+  }
 
-    this.info = function () {
-      return `${read ? "finised reading" : "not read yet"}.`;
-    };
+  info() {
+    return `${read ? "finised reading" : "not read yet"}.`;
   }
   toggleRead() {
     this.read = !this.read;
   }
-}
 
+  print() {
+    return ` 
+  <img src= 
+    "assets/images/book-open-alt-light-svgrepo-com.svg" alt="open book">
+            <h3>${this.title}</h3>
+            <p>${this.author}</p>
+            <p>${this.pages} pages</p>
+            <button type="button" class="read">${
+              this.read ? "Completed" : "Pending..."
+            }</button>
+            <button type="button" class="delete">Delete</button>`;
+  }
+}
 
 const sapiens = new Book("Sapiens", "Yuval Noah Harari", 580, true);
 const theAlchemist = new Book("The Alchemist", "Paulo Coelho", 213, true);
@@ -76,7 +88,6 @@ function deleteBookFromLibrary(bookIndex) {
     container.lastChild.dataset.index = myLibrary.length - 1;
   }
   setNumOfBooks();
- 
 }
 
 function displayAllBooks() {
@@ -87,25 +98,20 @@ function displayAllBooks() {
 }
 
 function setNumOfBooks() {
-  
-    noOfReadBooks.textContent = myLibrary.filter((book) => {
-      return book.read == true;
-    }).length; 
+  noOfReadBooks.textContent = myLibrary.filter((book) => {
+    return book.read == true;
+  }).length;
 
-    noOfUnreadBooks.textContent = myLibrary.filter((book) => {
-      return book.read == false;
-    }).length;
-  
- 
+  noOfUnreadBooks.textContent = myLibrary.filter((book) => {
+    return book.read == false;
+  }).length;
 }
-
-
 
 function createBookUI(book, index) {
   let bookDiv = document.createElement("div");
   bookDiv.classList.add("book");
   bookDiv.dataset.index = index;
-  let statusText = book.read ? "Completed" : "Pending...";
+  bookDiv.innerHTML = book.print();
   bookDiv.addEventListener("click", (e) => {
     let currentBookIndex = parseInt(bookDiv.dataset.index);
     if (e.target.matches("button.delete")) {
@@ -118,17 +124,8 @@ function createBookUI(book, index) {
       setNumOfBooks();
     }
   });
-  bookDiv.innerHTML = ` 
-  <img src= 
-    "assets/images/book-open-alt-light-svgrepo-com.svg" alt="open book">
-            <h3>${book.title}</h3>
-            <p>${book.author}</p>
-            <p>${book.pages} pages</p>
-            <button type="button" class="read">${statusText}</button>
-            <button type="button" class="delete">Delete</button>`;
   totalNoOfBooks.textContent = `${myLibrary.length}`;
   setNumOfBooks();
-
 
   return bookDiv;
 }
