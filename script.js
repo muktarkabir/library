@@ -75,8 +75,8 @@ function deleteBookFromLibrary(bookIndex) {
   if (container.hasChildNodes) {
     container.lastChild.dataset.index = myLibrary.length - 1;
   }
-  setNumOfReadBooks();
-  setNumOfUnreadBooks();
+  setNumOfBooks();
+ 
 }
 
 function displayAllBooks() {
@@ -86,17 +86,20 @@ function displayAllBooks() {
   });
 }
 
-function setNumOfReadBooks() {
-  noOfReadBooks.textContent = myLibrary.filter((book) => {
-    return book.read == true;
-  }).length;
+function setNumOfBooks() {
+  
+    noOfReadBooks.textContent = myLibrary.filter((book) => {
+      return book.read == true;
+    }).length; 
+
+    noOfUnreadBooks.textContent = myLibrary.filter((book) => {
+      return book.read == false;
+    }).length;
+  
+ 
 }
 
-function setNumOfUnreadBooks() {
-  noOfUnreadBooks.textContent = myLibrary.filter((book) => {
-    return book.read == false;
-  }).length;
-}
+
 
 function createBookUI(book, index) {
   let bookDiv = document.createElement("div");
@@ -112,8 +115,7 @@ function createBookUI(book, index) {
       myLibrary[currentBookIndex].read
         ? (e.target.textContent = "Completed")
         : (e.target.textContent = "Pending...");
-      setNumOfReadBooks();
-      setNumOfUnreadBooks();
+      setNumOfBooks();
     }
   });
   bookDiv.innerHTML = ` 
@@ -125,8 +127,8 @@ function createBookUI(book, index) {
             <button type="button" class="read">${statusText}</button>
             <button type="button" class="delete">Delete</button>`;
   totalNoOfBooks.textContent = `${myLibrary.length}`;
-  setNumOfReadBooks();
-  setNumOfUnreadBooks();
+  setNumOfBooks();
+
 
   return bookDiv;
 }
