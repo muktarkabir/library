@@ -45,7 +45,7 @@ class Book {
     this.read = !this.read;
   }
 
-  print() {
+  printHtml() {
     return ` 
   <img src= 
     "assets/images/book-open-alt-light-svgrepo-com.svg" alt="open book">
@@ -74,8 +74,6 @@ function addBooktoLibrary(title, author, noOfPages, read) {
   let book = new Book(title, author, noOfPages, read);
   myLibrary.push(book);
   let newBook = createBookUI(book, myLibrary.length - 1);
-  console.log(newBook);
-
   container.append(newBook);
 }
 
@@ -83,7 +81,6 @@ function deleteBookFromLibrary(bookIndex) {
   myLibrary.splice(bookIndex, 1);
   container.removeChild(container.childNodes[parseInt(bookIndex)]);
   totalNoOfBooks.textContent = ` ${myLibrary.length}`;
-
   if (container.hasChildNodes) {
     container.lastChild.dataset.index = myLibrary.length - 1;
   }
@@ -101,17 +98,18 @@ function setNumOfBooks() {
   noOfReadBooks.textContent = myLibrary.filter((book) => {
     return book.read == true;
   }).length;
-
   noOfUnreadBooks.textContent = myLibrary.filter((book) => {
     return book.read == false;
   }).length;
+  totalNoOfBooks.textContent = `${myLibrary.length}`;
+
 }
 
 function createBookUI(book, index) {
   let bookDiv = document.createElement("div");
   bookDiv.classList.add("book");
   bookDiv.dataset.index = index;
-  bookDiv.innerHTML = book.print();
+  bookDiv.innerHTML = book.printHtml();
   bookDiv.addEventListener("click", (e) => {
     let currentBookIndex = parseInt(bookDiv.dataset.index);
     if (e.target.matches("button.delete")) {
@@ -124,7 +122,6 @@ function createBookUI(book, index) {
       setNumOfBooks();
     }
   });
-  totalNoOfBooks.textContent = `${myLibrary.length}`;
   setNumOfBooks();
 
   return bookDiv;
