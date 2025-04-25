@@ -30,20 +30,22 @@ function setLightTheme() {
   document.documentElement.setAttribute("data-theme", "light");
 }
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
 
-  this.info = function () {
-    return `${read ? "finised reading" : "not read yet"}.`;
-  };
+    this.info = function () {
+      return `${read ? "finised reading" : "not read yet"}.`;
+    };
+  }
+  toggleRead() {
+    this.read = !this.read;
+  }
 }
 
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
 
 const sapiens = new Book("Sapiens", "Yuval Noah Harari", 580, true);
 const theAlchemist = new Book("The Alchemist", "Paulo Coelho", 213, true);
@@ -120,7 +122,6 @@ function createBookUI(book, index) {
             <h3>${book.title}</h3>
             <p>${book.author}</p>
             <p>${book.pages} pages</p>
-            <p>${book.info()}</p>
             <button type="button" class="read">${statusText}</button>
             <button type="button" class="delete">Delete</button>`;
   totalNoOfBooks.textContent = `${myLibrary.length}`;
