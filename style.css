@@ -236,10 +236,10 @@ section.stats {
 }
 
 ::view-transition-new(root) {
-  animation: circle-in 300ms;
+  animation: circle-in 600ms;
 }
 ::view-transition-old(root) {
-  animation-delay: 300ms;
+  animation-delay: 600ms;
 }
 @keyframes move-in {
   from { translate: 0 -100%; }
