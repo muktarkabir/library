@@ -21,7 +21,13 @@ setLightTheme();
 toggleThemeBtn.addEventListener("click", function () {
   const currentTheme = document.documentElement.getAttribute("data-theme");
   const newTheme = currentTheme === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", newTheme);
+  if (!document.startViewTransition) {
+    document.documentElement.setAttribute("data-theme", newTheme);
+  } else {
+    document.startViewTransition(() => {
+      document.documentElement.setAttribute("data-theme", newTheme);
+    });
+  }
   this.classList.toggle("fa-moon");
   this.classList.add("fa-sun");
 });
@@ -102,7 +108,6 @@ function setNumOfBooks() {
     return book.read == false;
   }).length;
   totalNoOfBooks.textContent = `${myLibrary.length}`;
-
 }
 
 function createBookUI(book, index) {

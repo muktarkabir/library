@@ -35,7 +35,6 @@ body {
   height: 100%;
   color: var(--text);
   font-family: var(--font-stack);
-  transition: background-color 300ms ease-in, color 300ms ease-in;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,16 +64,21 @@ header > h1 {
   justify-content: center;
   border: 2px solid var(--text);
   border-radius: 10px;
+  cursor: pointer;
 }
 .toggle-div i {
   font-size: 2rem;
   color: var(--text);
+  transition: all 1s;
 }
+.toggle-div i:hover{
+    transform: rotateZ(50deg) scale(1.2);
+  }
 
 main {
   width: 80%;
   min-height: 80%;
-  height: calc(100% * var(--header-height));
+  height: calc(100% - var(--header-height));
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-auto-rows: 350px;
@@ -224,4 +228,20 @@ section.stats {
   div {
     text-align: center;
   }
+}
+
+@keyframes circle-in {
+  from { clip-path: circle(0% at top right); }
+  to { clip-path: circle(110% at 50% 0%); }
+}
+
+::view-transition-new(root) {
+  animation: circle-in 300ms;
+}
+::view-transition-old(root) {
+  animation-delay: 300ms;
+}
+@keyframes move-in {
+  from { translate: 0 -100%; }
+  to { translate: 0  0; }
 }
