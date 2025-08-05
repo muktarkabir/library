@@ -232,14 +232,14 @@ section.stats {
 
 @keyframes circle-in {
   from { clip-path: circle(0% at top right); }
-  to { clip-path: circle(110% at 50% 0%); }
+  to { clip-path: circle(210% at bottom left); }
 }
 
 ::view-transition-new(root) {
-  animation: circle-in 600ms;
+  animation: circle-in 1s;
 }
 ::view-transition-old(root) {
-  animation-delay: 600ms;
+  animation-delay: 1s;
 }
 @keyframes move-in {
   from { translate: 0 -100%; }
