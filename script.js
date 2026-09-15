@@ -11,10 +11,10 @@ const readInput = addBookForm.querySelector("#read");
 const submitButton = addBookForm.querySelector("button");
 const infoSection = document.querySelector("section.stats");
 const totalNoOfBooks = infoSection.querySelector(".total-no-of-books h3");
-const noOfReadBooks = infoSection.querySelector(".no-finised-books h3");
+const noOfReadBooks = infoSection.querySelector(".no-finished-books h3");
 const noOfUnreadBooks = infoSection.querySelector(".no-unfinished-books h3");
 
-// Setiing up default light mode
+// Setting up default light mode
 setLightTheme();
 
 //Light and dark mode toggling
@@ -45,7 +45,7 @@ class Book {
   }
 
   info() {
-    return `${read ? "finised reading" : "not read yet"}.`;
+    return `${read ? "finished reading" : "not read yet"}.`;
   }
   toggleRead() {
     this.read = !this.read;
@@ -68,16 +68,16 @@ class Book {
 const sapiens = new Book("Sapiens", "Yuval Noah Harari", 580, true);
 const theAlchemist = new Book("The Alchemist", "Paulo Coelho", 213, true);
 const tHS = new Book("The Housemaid's Secret", "Frieda McFadden", 316, true);
-const abscenceOfMind = new Book("Absence of Mind", "H.C.H. Ritz", 310, true);
+const absenceOfMind = new Book("Absence of Mind", "H.C.H. Ritz", 310, true);
 const shadowSlave = new Book("Shadow Slave","Guilty Three","1000+",true);
 
-const myLibrary = [sapiens, theAlchemist, tHS, abscenceOfMind,shadowSlave];
+const myLibrary = [sapiens, theAlchemist, tHS, absenceOfMind,shadowSlave];
 
-function getLibraryLenght() {
+function getLibraryLength() {
   return myLibrary.length;
 }
 
-function addBooktoLibrary(title, author, noOfPages, read) {
+function addBookToLibrary(title, author, noOfPages, read) {
   let book = new Book(title, author, noOfPages, read);
   myLibrary.push(book);
   let newBook = createBookUI(book, myLibrary.length - 1);
@@ -152,7 +152,7 @@ submitButton.addEventListener("click", (e) => {
     let bookAuthor = authorInput.value.trim();
     let pagesNumber = parseInt(noOfPagesInput.value);
     let readYet = readInput.checked;
-    addBooktoLibrary(bookTitle, bookAuthor, pagesNumber, readYet);
+    addBookToLibrary(bookTitle, bookAuthor, pagesNumber, readYet);
     addBookForm.reset();
   }
 });
