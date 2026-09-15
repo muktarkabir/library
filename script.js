@@ -69,8 +69,9 @@ const sapiens = new Book("Sapiens", "Yuval Noah Harari", 580, true);
 const theAlchemist = new Book("The Alchemist", "Paulo Coelho", 213, true);
 const tHS = new Book("The Housemaid's Secret", "Frieda McFadden", 316, true);
 const abscenceOfMind = new Book("Absence of Mind", "H.C.H. Ritz", 310, true);
+const shadowSlave = new Book("Shadow Slave","Guilty Three","1000+",true);
 
-const myLibrary = [sapiens, theAlchemist, tHS, abscenceOfMind];
+const myLibrary = [sapiens, theAlchemist, tHS, abscenceOfMind,shadowSlave];
 
 function getLibraryLenght() {
   return myLibrary.length;
